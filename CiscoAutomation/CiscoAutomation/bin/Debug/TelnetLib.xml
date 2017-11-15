@@ -1,0 +1,662 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TelnetLib</name>
+    </assembly>
+    <members>
+        <member name="T:TelnetExpect.AnsiConsoleBase">
+            <summary>
+            Parses ANSI commands from the peer.  Also provides conversion of special
+            key-presses to the equivalent ANSI/vt-100 command.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.AnsiConsoleBase.RunPrinterForever">
+            <summary>
+            Reads from the <see cref="T:System.IO.Stream"/> and parses out ANSI
+            commands passing them to abstract method <see cref="M:OnAnsiCommand"/>
+            and the text to <see cref="M:TelnetExpect.AnsiConsoleBase.OnText(System.Byte[],System.Int32,System.Int32)"/>.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.AnsiConsoleBase.OnAnsiCommand(System.Char,System.Int32[])">
+            <summary>
+            Called when an ANSI command is found in the <see cref="T:System.IO.Stream"/>.
+            </summary>
+            -
+            <param name="command">The ANSI command code, e.g. H for 'CURSOR POSITION'.
+            </param>
+            <param name="vars">An array of <see cref="T:System.Int32"/> containing
+            the parameters for the command.
+            </param>
+            -
+            <remarks>?Need to handle other formats of command with different
+            intervening text.
+            </remarks>
+        </member>
+        <member name="M:TelnetExpect.AnsiConsoleBase.OnText(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Called when text is found in the <see cref="T:System.IO.Stream"/>.
+            </summary>
+            <param name="text">An array of <see cref="T:System.Byte"/>.  When this
+            method is called it contains text bytes received from the peer.
+            </param>
+            <param name="offset">The zero-based byte offset in buffer at which the
+            text bytes start.
+            </param>
+            <param name="count">The number of text bytes in the array.
+            </param>
+        </member>
+        <member name="T:TelnetExpect.AnsiConsoleBase2">
+            <summary>
+            Uses ANSI commands from base (<see cref="T:TelnetExpect.AnsiConsoleBase"/>) and calls
+            a corresponding per-command abstract method e.g.
+            <see cref="M:TelnetExpect.AnsiConsoleBase2.SetCursorPosition(System.Int32,System.Int32)"/>
+            and <see cref="M:TelnetExpect.AnsiConsoleBase2.EraseInLine(TelnetExpect.AnsiConsoleBase2.ClearAction)"/>.
+            </summary>
+        </member>
+        <member name="T:TelnetExpect.ConsoleAnsiConsole">
+            <summary>
+            An implementation of <see cref="T:AnsiConsoleBase2"/> that uses
+            <see cref="T:System.Console">System.Console</see>.
+            </summary>
+        </member>
+        <member name="T:TelnetExpect.ConsoleAuthenticationNtlmTelnetHandler">
+            <summary>
+            An implementation of <see cref="T:AuthenticationNtlmTelnetHandler"/> that uses
+            <see cref="T:System.Console">System.Console</see> to prompt to use NTLM.
+            </summary>
+        </member>
+        <member name="T:TelnetExpect.AuthenticationNtlmTelnetHandler">
+            <summary>
+            Enables automatic login to a server with NTLM (TNAP) authentication.
+            </summary>
+        </member>
+        <member name="T:TelnetExpect.TelnetOptionHandler">
+            <summary>
+            Telnet Option Handler base class.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.TelnetOptionHandler.Init">
+            <summary>
+            When overridden in a subclass
+            initializes the instance -- as now the parent is set etc.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.TelnetOptionHandler.HandleSubNegotiation(System.Byte[])">
+            <summary>
+            When overridden in a subclass
+            handles receipt of Telnet SubNegotiation command.
+            </summary>
+            -
+            <param name="data">The content of the SubNegotiation command.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.TelnetOptionHandler.OnChangedState(System.Boolean,TelnetExpect.TelnetOption,System.Boolean,System.Boolean,TelnetExpect.TelnetBaseStream.Command)">
+            <summary>
+            When overridden in a subclass
+            handles an Option having changed state.
+            </summary>
+            -
+            <param name="local">Whether the changed option is the local or remote
+            instance..
+            </param>
+            <param name="option">The changed Option id.
+            </param>
+            <param name="newState">A <see cref="T:System.Boolean"/> indicating
+            the new state of the option.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.TelnetOptionHandler.TraceWriteLine(System.String)">
+            <summary>
+            Writes diagnostic information.
+            </summary>
+            -
+            <param name="message">The descriptive message.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.TelnetOptionHandler.TraceWriteLine(System.String,System.Object[])">
+            <summary>
+            Writes diagnostic information.
+            </summary>
+            -
+            <param name="format">The format string.
+            </param>
+            <param name="args">The arguments used by the format string.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.TelnetOptionHandler.TraceWriteLine(System.String,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes diagnostic information about the content of a buffer.
+            </summary>
+            -
+            <param name="prefixMessage">The descriptive message to prefix the buffer information.
+            </param>
+            <param name="buffer">An array of bytes containing the buffer content.
+            </param>
+            <param name="offset">The point at which the content begins in the byte array.
+            </param>
+            <param name="count">The number of bytes of content in the array.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.TelnetOptionHandler.TraceWriteLineIf(System.Boolean,System.String)">
+            <summary>
+            Writes diagnostic information, optionally.
+            </summary>
+            -
+            <param name="condition">A <see cref="T:System.Boolean"/> indicating
+            whether to write the diagnostic information.
+            </param>
+            <param name="message">The descriptive message.
+            </param>
+        </member>
+        <member name="P:TelnetExpect.TelnetOptionHandler.Telnet">
+            <summary>
+            Gets the parent <see cref="T:TelnetExpect.TelnetStream"/> instance.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.AuthenticationNtlmTelnetHandler.Init">
+            <exclude/>
+        </member>
+        <member name="M:TelnetExpect.AuthenticationNtlmTelnetHandler.HandleSubNegotiation(System.Byte[])">
+            <exclude/>
+        </member>
+        <member name="T:TelnetExpect.EncryptionNullTelnetHandler">
+            <summary>
+            Allows the peer to enable <see cref="F:TelnetExpect.TelnetOption.EncryptionOption"/>
+            by negotiation, and when the peer offers its list of encryption types it
+            logs the contents of list, and refuses the offer.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.EncryptionNullTelnetHandler.#ctor">
+            <summary>
+            Initializes an instance of class <see cref="T:EncryptionNullTelnetHandler"/>.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.EncryptionNullTelnetHandler.Init">
+            <exclude/>
+        </member>
+        <member name="M:TelnetExpect.EncryptionNullTelnetHandler.HandleSubNegotiation(System.Byte[])">
+            <exclude/>
+        </member>
+        <member name="T:TelnetExpect.Expector">
+            <summary>
+            Provides UNIX Expect-like scripting of terminal connections.
+            </summary>
+            -
+            <example>
+            <code>
+            TcpClient cli = new TcpClient(hostName, TelnetStream.DefaultPort);
+            TelnetStream telnet = new TelnetStream(cli.GetStream());
+            // Don't want to see our keystrokes echoed back!
+            telnet.SetRemoteMode(TelnetOption.Echo, false);
+            m_xp = new Expector(telnet);
+            //
+            m_xp.Expect("login:");
+            m_xp.SendLine(m_username);
+            m_xp.Expect("password:");
+            m_xp.SendLine(m_password);
+            m_xp.Expect(">");
+            m_xp.SendLine("net start");
+            m_xp.SendLine("exit");
+            // If the service is running, it will be listed by "net start" and
+            // the following line will match it.  If not we'll read to EoF and
+            // an error will be produced.  (EndOfStreamException if the exit
+            // command works, or IOException if timeout occurs).
+            m_xp.Expect("   " + serviceDescr);
+            // If we got here then the service is running!
+            </code>
+            </example>
+        </member>
+        <member name="T:TelnetExpect.StatusReceiveTelnetHandler">
+            <summary>
+            Allows the peer to enable <see cref="F:TelnetExpect.TelnetOption.Status"/>
+            by negotiation, and when the peer offers its list of option status it
+            logs the contents of the list.
+            </summary>
+            -
+            <remarks>
+            <para>&#x201C;Once the two hosts have exchanged a WILL and a DO, the sender of the
+            WILL STATUS is free to transmit status information, spontaneously or
+            in response to a request from the sender of the DO.&#x201D; RFC0859
+            </para>
+            <para>To request that the peer sends a status report call method 
+            <see cref="M:RequestStatus"/>.
+            </para>
+            <para>If you want to handle the status report override method
+            <see cref="M:OnReceivedStatus"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:TelnetExpect.StatusReceiveTelnetHandler.#ctor">
+            <summary>
+            Initializes an instance of class <see cref="T:StatusReceiveTelnetHandler"/>.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.StatusReceiveTelnetHandler.Init">
+            <exclude/>
+        </member>
+        <member name="M:TelnetExpect.StatusReceiveTelnetHandler.RequestStatus">
+            <summary>
+            Sends a request for the peer to send a Status Report.
+            </summary>
+            -
+            <exception cref="T:System.InvalidOperationException">The remote device
+            has not negotiated support for the Status option.  See <see cref="P:IsSupported"/>
+            </exception>
+        </member>
+        <member name="M:TelnetExpect.StatusReceiveTelnetHandler.HandleSubNegotiation(System.Byte[])">
+            <exclude/>
+        </member>
+        <member name="M:TelnetExpect.StatusReceiveTelnetHandler.OnReceivedStatus(TelnetExpect.TelnetOption[],TelnetExpect.TelnetOption[])">
+            <summary>
+            When overridden in a derived class, receives the content of received
+            status reports.
+            </summary>
+            <param name="myRemoteOptions">The list of the options that the peer
+            believes is enabled on his side.
+            </param>
+            <param name="yourLocalOptions">The list of the options that the peer
+            believes is enabled on our side.
+            </param>
+        </member>
+        <member name="P:TelnetExpect.StatusReceiveTelnetHandler.IsSupported">
+            <summary>
+            Gets whether the remote device
+            has negotiated support for the Status option.
+            </summary>
+        </member>
+        <member name="T:TelnetExpect.ConsoleTerminalAnsiTelnetHandler">
+            <summary>
+            A concrete implementation of <see cref="T:TelnetExpect.TerminalAnsiTelnetHandlerBase"/>
+            for <see cref="T:System.Console">System.Console</see>.
+            For NAWS uses
+            <see cref="P:System.Console.WindowWidth">Console.WindowWidth</see> etc,
+            and disables negotiation if not running in console.
+            </summary>
+        </member>
+        <member name="T:TelnetExpect.TerminalAnsiTelnetHandlerBase">
+            <summary>
+            Allows the peer to enable <see cref="F:TelnetExpect.TelnetOption.TerminalType"/>
+            and <see cref="F:TelnetExpect.TelnetOption.NegotiateAboutWindowSize"/> by negotiation.
+            Responds to TerminalType requests with “ANSI”, and to NAWS
+            with result from overridden method <see cref="M:TelnetExpect.TerminalAnsiTelnetHandlerBase.GetWindowSize(System.Int32@,System.Int32@)"/>.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.TerminalAnsiTelnetHandlerBase.#ctor">
+            <summary>
+            Initializes an instance of class <see cref="T:TerminalAnsiTelnetHandlerBase"/>.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.TerminalAnsiTelnetHandlerBase.Init">
+            <exclude/>
+        </member>
+        <member name="M:TelnetExpect.TerminalAnsiTelnetHandlerBase.HandleSubNegotiation(System.Byte[])">
+            <exclude/>
+        </member>
+        <member name="M:TelnetExpect.TerminalAnsiTelnetHandlerBase.OnChangedState(System.Boolean,TelnetExpect.TelnetOption,System.Boolean,System.Boolean,TelnetExpect.TelnetBaseStream.Command)">
+            <exclude/>
+        </member>
+        <member name="M:TelnetExpect.TerminalAnsiTelnetHandlerBase.GetWindowSize(System.Int32@,System.Int32@)">
+            <summary>
+            When overridden in a derived class,
+            returns the size of the window.
+            </summary>
+            -
+            <remarks>Both width and height are sent as 16-bit values an error will
+            occur if they don't fit in a <see cref="T:System.UInt16"/>.
+            Zero can be returned to signal that the size is unknown.
+            </remarks>
+            -
+            <param name="width">Returns an <see cref="T:System.Int32"/> containing
+            the width of the window.
+            </param>
+            <param name="height">Returns an <see cref="T:System.Int32"/> containing
+            the height of the window.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.ConsoleTerminalAnsiTelnetHandler.#ctor">
+            <summary>
+            Initializes an instance of class <see cref="T:ConsoleTerminalAnsiTelnetHandler"/>.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.ConsoleTerminalAnsiTelnetHandler.Init">
+            <exclude/>
+        </member>
+        <member name="M:TelnetExpect.ConsoleTerminalAnsiTelnetHandler.GetWindowSize(System.Int32@,System.Int32@)">
+            <summary>
+            Provides window size using <see cref="P:System.Console.WindowWidth">Console.WindowWidth</see> etc.
+            </summary>
+            -
+            <param name="width">Returns the result of
+            <see cref="P:System.Console.WindowWidth">Console.WindowWidth</see>.
+            </param>
+            <param name="height">Returns the result of
+            <see cref="P:System.Console.WindowHeight">Console.WindowHeight</see>.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.Ntlm.MySspi.#ctor(System.String)">
+            <summary>
+            Initialize an instance of the <see cref="T:TelnetExpect.Ntlm.MySspi"/> class.
+            </summary>
+            <param name="target">The SPN (Service Principle Name) of the target
+            service, e.g. "telnet/pc1".
+            <see cref="M:MySspi.CreateSpn"/> can be used to create the SPN string.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.Ntlm.MySspi.CreateSpn(System.String,System.String,System.Int32,System.Int32)">
+             <summary>
+             
+             </summary>
+             <param name="serviceClass">A <see cref="T:System.String"/> that specifies
+             the class of the service. This parameter can be any string unique to
+             that service; either the protocol name, for example, ldap, or the
+             string form of a GUID are acceptable.
+            </param>
+             <param name="hostName">A <see cref="T:System.String"/> that specifies
+             the DNS name, NetBIOS name, or distinguished name (DN). This parameter
+             must be supplied.
+             </param>
+             <param name="port">Port number for an instance of the service. Use 0
+             for the default port. If this parameter is zero, the SPN does not
+             include a port number.  That is also the case if
+             <paramref name="port"/>==<paramref name="defaultPort"/>.
+             </param>
+             <param name="defaultPort">The default Port number for the service, for
+             instance 23 for Telnet, and XX for LDAP.  If
+             <paramref name="port"/>==<paramref name="defaultPort"/>, then the SPN
+             does not include a port number.
+             </param>
+             <returns>A <see cref="T:System.String"/> containing the constructed SPN.
+             </returns>
+        </member>
+        <member name="M:TelnetExpect.Ntlm.MySspi.DoStep(System.Byte[],System.Boolean@)">
+            <summary>
+            Handle the next phase of authentication processing.
+            </summary>
+            <param name="input">Optional byte array containing authentication token 
+            from the peer.  For NTLM should be null when called the first time.</param>
+            <param name="done">Output boolean signalling whether the authentication
+            process has completed.
+            </param>
+            <returns>Bytte array of authentication token to send to the peer.
+            </returns>
+        </member>
+        <member name="F:TelnetExpect.Ntlm.MySspi.SECURITY_STATUS.SEC_I_CONTINUE_NEEDED">
+            <summary>
+            "The function completed successfully, but must be called again to complete the context"
+            </summary>
+        </member>
+        <member name="F:TelnetExpect.Ntlm.MySspi.SECURITY_STATUS.SEC_I_COMPLETE_NEEDED">
+            <summary>
+            The function completed successfully, but CompleteToken must be called
+            </summary>
+        </member>
+        <member name="F:TelnetExpect.Ntlm.MySspi.SECURITY_STATUS.SEC_I_COMPLETE_AND_CONTINUE">
+            <summary>
+            The function completed successfully, but both CompleteToken and this function must be called to complete the context
+            </summary>
+        </member>
+        <member name="T:TelnetExpect.Ntlm.MySspi.SecPkgAttr.Id">
+            <summary>
+            Security Context Attributes:
+            </summary>
+        </member>
+        <member name="T:TelnetExpect.Ntlm.MySspi.SecPkgAttr.SecPkgFlag">
+            <summary>
+            Security Package Capabilities
+            </summary>
+        </member>
+        <member name="T:TelnetExpect.TelnetAgreeToSomeStream">
+            <summary>
+            Provides Telnet communications and in negotiation agrees a fixed set of options.
+            </summary>
+        </member>
+        <member name="T:TelnetExpect.TelnetBaseStream">
+            <summary>
+            Provides Telnet communications and in negotiation rejects all options.
+            </summary>
+        </member>
+        <member name="F:TelnetExpect.TelnetBaseStream.DefaultPort">
+            <summary>
+            The default TCP/IP port used by Telnet.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.TelnetBaseStream.#ctor(System.IO.Stream)">
+            <summary>
+            Initialize an instance.
+            </summary>
+            <param name="peer">A <see cref="T:System.IO.Stream"/> connected to the
+            Telnet peer/server.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.TelnetBaseStream.Flush">
+            <summary>
+            Clears all buffers for this stream and the child stream and
+            causes any buffered data to be written to the underlying device.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.TelnetBaseStream.TraceWriteLine(System.String)">
+            <summary>
+            Writes diagnostic information.
+            </summary>
+            -
+            <param name="message">The descriptive message.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.TelnetBaseStream.TraceWriteLine(System.String,System.Object[])">
+            <summary>
+            Writes diagnostic information.
+            </summary>
+            -
+            <param name="format">The format string.
+            </param>
+            <param name="args">The arguments used by the format string.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.TelnetBaseStream.TraceWriteLine(System.String,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes diagnostic information about the content of a buffer.
+            </summary>
+            -
+            <param name="prefixMessage">The descriptive message to prefix the buffer information.
+            </param>
+            <param name="buffer">An array of bytes containing the buffer content.
+            </param>
+            <param name="offset">The point at which the content begins in the byte array.
+            </param>
+            <param name="count">The number of bytes of content in the array.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.TelnetBaseStream.TraceWriteLineIf(System.Boolean,System.String)">
+            <summary>
+            Writes diagnostic information, optionally.
+            </summary>
+            -
+            <param name="condition">A <see cref="T:System.Boolean"/> indicating
+            whether to write the diagnostic information.
+            </param>
+            <param name="message">The descriptive message.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.TelnetBaseStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Not supported.
+            </summary>
+        </member>
+        <member name="M:TelnetExpect.TelnetBaseStream.SetLength(System.Int64)">
+            <summary>
+            Not supported.
+            </summary>
+        </member>
+        <member name="P:TelnetExpect.TelnetBaseStream.IsAtNormalState">
+            <summary>
+            Gets whether the incoming data is currently normal data. and we're
+            not in the middle of a telnet command or negotiation.
+            </summary>
+            -
+            <remarks>This is of most use internally.
+            </remarks>
+        </member>
+        <member name="P:TelnetExpect.TelnetBaseStream.Length">
+            <summary>
+            Not supported.
+            </summary>
+        </member>
+        <member name="P:TelnetExpect.TelnetBaseStream.Position">
+            <summary>
+            Not supported.
+            </summary>
+        </member>
+        <member name="F:TelnetExpect.TelnetBaseStream.Command.BRK">
+            <summary>
+            Break
+            </summary>
+        </member>
+        <member name="F:TelnetExpect.TelnetBaseStream.Command.IP">
+            <summary>
+            Interrupt Process
+            </summary>
+        </member>
+        <member name="F:TelnetExpect.TelnetBaseStream.Command.AO">
+            <summary>
+            Abort Output
+            </summary>
+        </member>
+        <member name="F:TelnetExpect.TelnetBaseStream.Command.AYT">
+            <summary>
+            Are You There
+            </summary>
+        </member>
+        <member name="F:TelnetExpect.TelnetBaseStream.Command.EC">
+            <summary>
+            Erase Character
+            </summary>
+        </member>
+        <member name="F:TelnetExpect.TelnetBaseStream.Command.EL">
+            <summary>
+            Erase Line
+            </summary>
+        </member>
+        <member name="T:TelnetExpect.TelnetOption">
+            <summary>
+            Telnet Option codes from <see href="http://www.iana.org/assignments/telnet-options"/>.
+            </summary>
+        </member>
+        <member name="T:TelnetExpect.TelnetStream">
+            <summary>
+            Provides Telnet communications and is quite capable regarding negotiation.
+            </summary>
+            -
+            <remarks>
+            <para>Defaults to agreeing to <see cref="F:TelnetExpect.TelnetOption.BinaryTransmission"/>
+            in both directions, and to
+            the server enabling <see cref="F:TelnetExpect.TelnetOption.Echo"/> and
+            <see cref="F:TelnetExpect.TelnetOption.SuppressGoAhead"/>.  If being used in
+            scripted scenario to stop your sent keypresses/commands being returned
+            in the received data then disable Echo (<c>ts.SetRemoteMode(TelnetOption.Echo, false)</c>).
+            </para>
+            <para>Similar to <see cref="T:TelnetExpect.TelnetBaseStream"/> the negotiation
+            processing is driven by the <see cref="M:System.IO.Stream.Read"/> method
+            being called.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:TelnetExpect.TelnetStream.#ctor(System.IO.Stream)">
+            <summary>
+            Initialize an instance of the <see cref="T:TelnetStream"/> class.
+            </summary>
+            <param name="peer"></param>
+        </member>
+        <member name="M:TelnetExpect.TelnetStream.GetRemoteMode(TelnetExpect.TelnetOption)">
+            <summary>
+            Get whether we set that
+            we can support the option as it applies to the
+            remote side.
+            </summary>
+            -
+            <returns>A <see cref="T:System.Boolean"/> indicating whether the option is set as supported.
+            </returns>
+        </member>
+        <member name="M:TelnetExpect.TelnetStream.SetRemoteMode(TelnetExpect.TelnetOption,System.Boolean)">
+            <summary>
+            Set whether we can support the option as it applies to the remote side.
+            </summary>
+            -
+            <param name="option">A <see cref="T:TelnetExpect.TelnetOption"/> specifying the option
+            id.
+            </param>
+            <param name="enable">A <see cref="T:System.Boolean"/> indicating
+            whether the option is supported.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.TelnetStream.GetRemoteState(TelnetExpect.TelnetOption)">
+            <summary>
+            Get the state of the specified option as it applies to the
+            remote side.
+            </summary>
+            -
+            <param name="option">A <see cref="T:TelnetExpect.TelnetOption"/> specifying the option
+            id.
+            </param>
+            -
+            <returns>A <see cref="T:System.Boolean"/> indicating whether the option is currently enabled.
+            </returns>
+        </member>
+        <member name="M:TelnetExpect.TelnetStream.GetLocalMode(TelnetExpect.TelnetOption)">
+            <summary>
+            Get whether we set that
+            we can support the option as it applies to the
+            local side.
+            </summary>
+            -
+            <returns>A <see cref="T:System.Boolean"/> indicating whether the option is set as supported.
+            </returns>
+        </member>
+        <member name="M:TelnetExpect.TelnetStream.SetLocalMode(TelnetExpect.TelnetOption,System.Boolean)">
+            <summary>
+            Set whether
+            we can support the option as it applies to the
+            local side.
+            </summary>
+            -
+            <param name="option">A <see cref="T:TelnetExpect.TelnetOption"/> specifying the option
+            id.
+            </param>
+            <param name="enable">A <see cref="T:System.Boolean"/> indicating
+            whether the option is supported.
+            </param>
+        </member>
+        <member name="M:TelnetExpect.TelnetStream.GetLocalState(TelnetExpect.TelnetOption)">
+            <summary>
+            Get the state of the specified option as it applies to the 
+            local side.
+            </summary>
+            -
+            <param name="option">A <see cref="T:TelnetExpect.TelnetOption"/> specifying the option
+            id.
+            </param>
+            -
+            <returns>A <see cref="T:System.Boolean"/> indicating whether the option is currently enabled.
+            </returns>
+        </member>
+        <member name="M:TelnetExpect.TelnetStream.AddOptionHandler(TelnetExpect.TelnetOptionHandler)">
+            <summary>
+            Add a <see cref="T:TelnetExpect.TelnetOptionHandler"/> which can handle
+            negotiation or sub-negotiation.
+            </summary>
+            -
+            <param name="handler">An instance of a sub-class of 
+            <see cref="T:TelnetExpect.TelnetOptionHandler"/>.
+            </param>
+        </member>
+        <member name="P:TelnetExpect.TelnetStream.IsRemoteEcho">
+            <summary>
+            Get whether the remote side is responsible for echoing typed characters.
+            </summary>
+            -
+            <remarks>
+            <para>Of course only applies when we are the client side of the connection.
+            </para>
+            </remarks>
+        </member>
+    </members>
+</doc>
