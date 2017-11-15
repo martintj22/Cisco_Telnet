@@ -12,14 +12,35 @@ namespace CiscoAutomation
         public static Dictionary<String, String> CiscoDevice = new Dictionary<String, String>();
         public static List<string> mylist = new List<string>();
         public static List<String> Result = new List<String>();
+        public static List<string> compileCommands = new List<string>();
         public static Telnet.TelnetConnection T1;
 
-        public static string ip = "192.168.0.1";
+        public static string ip = "172.16.0.1";
         public static string pw = "cisco";
 
         static void Main(string[] args)
         {
+            while (true)
+            {
+
+                Console.WriteLine("Please enter the number for the configuration mode you would like to execute:");
+                Console.WriteLine("1 - line vty password cisco");
+                Console.WriteLine("2 - enable secret cisco");
+                Console.WriteLine("3 - set banner motd");
+                Console.WriteLine("4 - ");
+
+                for (int i = 0; i < compileCommands.Count(); i++)
+                {
+                    if (compileCommands[i] == "1")
+                    {
+                        LineVty(i);
+                    }
+                }
+
+            }
             Connect();
+
+
         }
 
         static void Connect()
@@ -70,6 +91,6 @@ namespace CiscoAutomation
             T1.CiscoCommand("default-router 192.168.139.1");
             T1.CiscoCommand("exit");
             T1.CiscoCommand("exit");
-        }
+        }    
     }
 }

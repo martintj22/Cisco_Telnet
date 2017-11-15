@@ -7,3 +7,11 @@ C:\Users\bksa.skp\source\repos\CiscoAutomation\CiscoAutomation\obj\Debug\CiscoAu
 C:\Users\bksa.skp\source\repos\CiscoAutomation\CiscoAutomation\obj\Debug\CiscoAutomation.csproj.CoreCompileInputs.cache
 C:\Users\bksa.skp\source\repos\CiscoAutomation\CiscoAutomation\obj\Debug\CiscoAutomation.exe
 C:\Users\bksa.skp\source\repos\CiscoAutomation\CiscoAutomation\obj\Debug\CiscoAutomation.pdb
+C:\Users\admin\Desktop\H1\netværkgit\CiscoAutomation\CiscoAutomation\obj\Debug\CiscoAutomation.csprojResolveAssemblyReference.cache
+C:\Users\admin\Desktop\H1\netværkgit\CiscoAutomation\CiscoAutomation\obj\Debug\CiscoAutomation.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\H1\netværkgit\CiscoAutomation\CiscoAutomation\obj\Debug\CiscoAutomation.exe
+C:\Users\admin\Desktop\H1\netværkgit\CiscoAutomation\CiscoAutomation\obj\Debug\CiscoAutomation.pdb
+C:\Users\admin\Desktop\H1\netværkgit\CiscoAutomation\CiscoAutomation\bin\Debug\CiscoAutomation.exe.config
+C:\Users\admin\Desktop\H1\netværkgit\CiscoAutomation\CiscoAutomation\bin\Debug\CiscoAutomation.exe
+C:\Users\admin\Desktop\H1\netværkgit\CiscoAutomation\CiscoAutomation\bin\Debug\CiscoAutomation.pdb
+C:\Users\admin\Desktop\H1\netværkgit\CiscoAutomation\CiscoAutomation\bin\Debug\TelnetLib.xml
