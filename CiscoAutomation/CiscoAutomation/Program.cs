@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace CiscoAutomation
     class Program
     {
         public static Dictionary<String, String> CiscoDevice = new Dictionary<String, String>();
+        public static List<String> confList = new List<String>();
         public static Telnet.TelnetConnection T1;
 
         public static string ip;
@@ -25,33 +27,42 @@ namespace CiscoAutomation
         /// </summary>
         static void Connect()
         {
-            Print("Please enter the ip of the device you wish to configure", ConsoleColor.Red);
-            ip = Console.ReadLine();
-            Print("Enter the password", ConsoleColor.Red);
-            pw = Console.ReadLine();
+            bool connecting = true;
 
-            // If both strings aren't empty - try to logon
-            if ((!(string.IsNullOrWhiteSpace(ip))) && (!(string.IsNullOrWhiteSpace(pw))))
-            {                
-                CiscoDevice.Add("IP", ip); // Add ip to dict
-                T1 = new Telnet.TelnetConnection(CiscoDevice["IP"], 23);
-                // If connection succeeds
-                if (T1.IsConnected == true)
+            while (connecting)
+            {
+                Console.Clear();
+                Print("Please enter the ip of the device you wish to configure", ConsoleColor.Red);
+                ip = Console.ReadLine();
+                Print("Enter the password", ConsoleColor.Red);
+                pw = Console.ReadLine();
+
+                // If both strings aren't empty - try to logon
+                if ((!(string.IsNullOrWhiteSpace(ip))) && (!(string.IsNullOrWhiteSpace(pw))))
                 {
-                    string s = T1.CiscoLogin(pw); // Login with given password
-                    T1.CiscoEnable(pw); // After logging in, enter enable-mode with password
-                    Print("Connection established!", ConsoleColor.Green);
-                    Print("\n" + "Press any key to go to the configuration-menu", ConsoleColor.Yellow);
-                    Console.ReadKey();
-                    ChooseConf(); // Enter menu if connection succeeds
+                    CiscoDevice.Add("IP", ip); // Add ip to dict
+                    T1 = new Telnet.TelnetConnection(CiscoDevice["IP"], 23);
+                    // If connection succeeds
+                    if (T1.IsConnected == true)
+                    {
+                        string s = T1.CiscoLogin(pw); // Login with given password
+                        T1.CiscoEnable(pw); // After logging in, enter enable-mode with password
+                        Print("Connection established!", ConsoleColor.Green);
+                        Print("\n" + "Press any key to go to the configuration-menu", ConsoleColor.Yellow);
+                        Console.ReadKey();
+
+                        connecting = false; // Exit loop if connection succeeds
+                        ChooseConf(); // Enter menu if connection succeeds
+                    }
                 }
-
-                // Outputs error if connection fails
-                else if (T1.IsConnected == false)
+                else if (string.IsNullOrEmpty(ip) || (string.IsNullOrEmpty(pw)))
                 {
-                    Console.WriteLine("Login has failed");
+                    Print("Please enter username and password!", ConsoleColor.Red);
+                    Print("\n" + "Press any key to retry logging in", ConsoleColor.Yellow);
+                    Console.ReadKey();
                 }
             }
+            
         }
 
         /// <summary>
@@ -68,6 +79,7 @@ namespace CiscoAutomation
                 Print("2) Set/change MOTD", ConsoleColor.Yellow);
                 Print("3) Change hostname", ConsoleColor.Yellow);
                 Print("4) Configure vty-lines", ConsoleColor.Yellow);
+                Print("5) Save running-config to text file", ConsoleColor.Yellow);
                 Print("\n" + "Type 'exit' to close the program", ConsoleColor.Yellow);
                 choice = Console.ReadLine();
 
@@ -95,9 +107,15 @@ namespace CiscoAutomation
                     LineVty();
                 }
 
+                else if (choice == "5")
+                {
+                    decide = false;
+                    GetCfg();
+                }
+
                 else if (choice == "exit")
                 {
-                    Environment.Exit(0); // Closes application
+                    Environment.Exit(0);
                 }
 
                 else
@@ -176,7 +194,7 @@ namespace CiscoAutomation
                 string command;
                 Print("Enter the commands you wish to use, type 'done' when you wish to exit. \n", ConsoleColor.Green);
                 Console.Write("Command: ");
-                command = Console.ReadLine().Trim().ToLower();
+                command = Console.ReadLine();
                 T1.CiscoCommand(command);
 
                 // Exit loop and go back to menu if command string is 'done'
@@ -204,6 +222,37 @@ namespace CiscoAutomation
             Print("\n" + "Press any key to return to menu..", ConsoleColor.Yellow);
             Console.ReadKey();
             ChooseConf(); // Back to menu
+        }
+
+        static void GetCfg()
+        {
+            try
+            {
+                string filename;
+                Print("Please enter a name for the file", ConsoleColor.Yellow);
+                filename = Console.ReadLine();
+                string path = String.Format(@"{0}\" + filename, Environment.CurrentDirectory + ".txt");
+
+                StreamWriter sw = new StreamWriter(path);
+
+                confList = T1.CiscoCommand("Show running");
+
+                confList.ForEach(delegate (string line)
+                {
+                    sw.WriteLine(line);
+                });
+
+                sw.Close();
+                Print("Config file saved to \n" + path, ConsoleColor.Green);
+                Print("\n" + "Press any key to return to menu..", ConsoleColor.Yellow);
+                Console.ReadKey();
+                ChooseConf();
+            }
+            catch (Exception e)
+            {
+                Print("Exception: " + e, ConsoleColor.Red);
+                Console.ReadKey();
+            }
         }  
     }
 }
