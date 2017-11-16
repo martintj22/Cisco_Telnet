@@ -4,6 +4,9 @@
  - Menu med 4 ekstra commands.
  - Portable.
  - Lyn hurtigt og nemt at opsætte.
+ - TODO:
+   - Oprette en funktion der tager running-config fra enheden, og gemmer den i en tekstfil
+   - En funktion der kan læse en config fra en tekstfil, og kopiere den over til enten running-config eller startup-config
  
 
 
