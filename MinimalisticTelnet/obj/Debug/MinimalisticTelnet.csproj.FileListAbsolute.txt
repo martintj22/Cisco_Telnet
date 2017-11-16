@@ -1,7 +1,0 @@
-C:\Users\maj1.skp\Desktop\telnet\MinimalisticTelnet\bin\Debug\MinimalisticTelnet.exe.config
-C:\Users\maj1.skp\Desktop\telnet\MinimalisticTelnet\bin\Debug\MinimalisticTelnet.exe
-C:\Users\maj1.skp\Desktop\telnet\MinimalisticTelnet\bin\Debug\MinimalisticTelnet.pdb
-C:\Users\maj1.skp\Desktop\telnet\MinimalisticTelnet\obj\Debug\MinimalisticTelnet.csprojResolveAssemblyReference.cache
-C:\Users\maj1.skp\Desktop\telnet\MinimalisticTelnet\obj\Debug\MinimalisticTelnet.csproj.CoreCompileInputs.cache
-C:\Users\maj1.skp\Desktop\telnet\MinimalisticTelnet\obj\Debug\MinimalisticTelnet.exe
-C:\Users\maj1.skp\Desktop\telnet\MinimalisticTelnet\obj\Debug\MinimalisticTelnet.pdb
