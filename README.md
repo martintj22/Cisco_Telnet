@@ -17,7 +17,7 @@
 - Vi har holdt vores code rent, så det vil være nemt at tilføje flere commands.
 - Vores projekt inholder, descriptions og summary.
 - Vi har brugt, 2 dage på at programmere programmet.
-- Vi har testet programmet med, en cisco router og to switches.
+- Vi har testet programmet med, en cisco 1841 router og 2x cisco catalyst 2960.
 
 
 # Vores Team
