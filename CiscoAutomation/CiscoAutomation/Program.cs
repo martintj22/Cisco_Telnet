@@ -10,9 +10,6 @@ namespace CiscoAutomation
     class Program
     {
         public static Dictionary<String, String> CiscoDevice = new Dictionary<String, String>();
-        public static List<string> mylist = new List<string>();
-        public static List<String> Result = new List<String>();
-        public static List<string> compileCommands = new List<string>();
         public static Telnet.TelnetConnection T1;
 
         public static string ip;
@@ -100,7 +97,7 @@ namespace CiscoAutomation
 
                 else if (choice == "exit")
                 {
-                    Environment.Exit(0);
+                    Environment.Exit(0); // Closes application
                 }
 
                 else
@@ -179,7 +176,7 @@ namespace CiscoAutomation
                 string command;
                 Print("Enter the commands you wish to use, type 'done' when you wish to exit. \n", ConsoleColor.Green);
                 Console.Write("Command: ");
-                command = Console.ReadLine();
+                command = Console.ReadLine().Trim().ToLower();
                 T1.CiscoCommand(command);
 
                 // Exit loop and go back to menu if command string is 'done'
