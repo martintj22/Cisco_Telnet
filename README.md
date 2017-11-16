@@ -11,7 +11,8 @@
 
 - Scriptet i c# med visuel studio.
 - Vores program bruger port 23, som er telenet.
-- Vi har brugt, 2 dage på at programmere progammet.
+- Vores program, kører som en console application. 
+- Vi har brugt, 2 dage på at programmere programmet.
 - Vi har testet programmet med, en cisco router og to switches.
 
 
