@@ -118,25 +118,6 @@ namespace Telnet
             return ResultList;
         }
 
-        public List<String> CiscoHostname(string newname)
-        {
-            String Result;
-
-            List<String> ResultList = new List<String>();
-            WriteLine("hostname " + newname);
-            hostname = newname;
-            Result = ReadUntil("(" + hostname + "#|" + hostname + "\\(config.*\\)#)");
-            String[] ResultArray = Result.Split('\r');
-            //Remove newline and replace tabs with space
-            for (int i = 0; i < ResultArray.Length; i++)
-            {
-                ResultArray[i] = Regex.Replace(ResultArray[i], @"\n|\r", "");    // Remove \r and \n
-                ResultArray[i] = Regex.Replace(ResultArray[i], @"\t+", " ");        // Replace one or more tabs with one space
-                ResultList.Add(ResultArray[i]);
-            }
-            return ResultList;
-        }
-
         public void WriteLine(string cmd)
         {
             Write(cmd + "\n");

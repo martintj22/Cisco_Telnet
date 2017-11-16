@@ -15,3 +15,12 @@ C:\Users\admin\Desktop\H1\netværkgit\CiscoAutomation\CiscoAutomation\bin\Debug\
 C:\Users\admin\Desktop\H1\netværkgit\CiscoAutomation\CiscoAutomation\bin\Debug\CiscoAutomation.exe
 C:\Users\admin\Desktop\H1\netværkgit\CiscoAutomation\CiscoAutomation\bin\Debug\CiscoAutomation.pdb
 C:\Users\admin\Desktop\H1\netværkgit\CiscoAutomation\CiscoAutomation\bin\Debug\TelnetLib.xml
+C:\Users\bksa.skp\Documents\Cisco_Telnet\CiscoAutomation\CiscoAutomation\bin\Debug\CiscoAutomation.exe.config
+C:\Users\bksa.skp\Documents\Cisco_Telnet\CiscoAutomation\CiscoAutomation\bin\Debug\CiscoAutomation.exe
+C:\Users\bksa.skp\Documents\Cisco_Telnet\CiscoAutomation\CiscoAutomation\bin\Debug\CiscoAutomation.pdb
+C:\Users\bksa.skp\Documents\Cisco_Telnet\CiscoAutomation\CiscoAutomation\bin\Debug\TelnetLib.dll
+C:\Users\bksa.skp\Documents\Cisco_Telnet\CiscoAutomation\CiscoAutomation\bin\Debug\TelnetLib.xml
+C:\Users\bksa.skp\Documents\Cisco_Telnet\CiscoAutomation\CiscoAutomation\obj\Debug\CiscoAutomation.csprojResolveAssemblyReference.cache
+C:\Users\bksa.skp\Documents\Cisco_Telnet\CiscoAutomation\CiscoAutomation\obj\Debug\CiscoAutomation.csproj.CoreCompileInputs.cache
+C:\Users\bksa.skp\Documents\Cisco_Telnet\CiscoAutomation\CiscoAutomation\obj\Debug\CiscoAutomation.exe
+C:\Users\bksa.skp\Documents\Cisco_Telnet\CiscoAutomation\CiscoAutomation\obj\Debug\CiscoAutomation.pdb
