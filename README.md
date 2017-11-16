@@ -10,7 +10,7 @@
 # Documentation
 
 - Scriptet i c# med visuel studio.
-- Vores program bruger port 23, som er telenet.
+- Vores program bruger port 23, som er telnet.
 - Programmet er specielt lavet, til at virke med en cisco router.
 - Vores program, kører som en console application.
 - Programmet opretter forbindelse, derefter bliver der vist en menu med 4 mulligheder.
