@@ -1,4 +1,4 @@
-# Cisco Telenet Projekt Features:
+# Cisco Telnet Projekt Features:
 
  - Automatisk Forbindelse til Cisco router.
  - Menu med 4 ekstra commands.
@@ -10,7 +10,7 @@
  
 
 
-# Documentation
+# Dokumentation
 
 - Kodet i C# med Visual Studio.
 - Vores program bruger port 23, som er telnet.
