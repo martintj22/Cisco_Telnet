@@ -5,12 +5,7 @@
   - Portable.
   - Lyn hurtigt og nemt at opsætte.
   
-# Vores Team
 
- - Benjamin
- - Jannik
- - Micheal
- - Martin
 
 # Documentation
 
@@ -19,3 +14,10 @@
 - Vi har brugt, 2 dage på at programmere progammet.
 - Vi har testet programmet med, en cisco router og to switches.
 
+
+# Vores Team
+
+ - Benjamin
+ - Jannik
+ - Micheal
+ - Martin
