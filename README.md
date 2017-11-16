@@ -1,7 +1,7 @@
 # Cisco Telnet Projekt Features:
 
  - Automatisk forbindelse til Cisco router.
- - Menu med 4 ekstra commands.
+ - Menu med 5 separate commands.
  - Portable og dynamisk
  - Lyn hurtigt og nemt at opsætte.
  - TODO:
