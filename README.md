@@ -1,6 +1,6 @@
 # Cisco Telnet Projekt Features:
 
- - Automatisk Forbindelse til Cisco router.
+ - Automatisk forbindelse til Cisco router.
  - Menu med 4 ekstra commands.
  - Portable og dynamisk
  - Lyn hurtigt og nemt at opsætte.
@@ -19,7 +19,7 @@
 - Programmet opretter forbindelse, derefter bliver der vist en menu med 4 mulligheder.
 - Vi har holdt vores kode ren, så det vil være nemt at tilføje flere commands.
 - Vores projekt indeholder comments og summaries.
-- Vi har brugt 2 dage på at programmere programmet.
+- Vi har brugt 2 dage på at kode programmet.
 - Vi har testet programmet med en Cisco 1841 router og 2x Cisco Catalyst 2960.
 
 
