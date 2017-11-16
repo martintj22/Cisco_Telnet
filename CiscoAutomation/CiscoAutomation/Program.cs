@@ -204,30 +204,6 @@ namespace CiscoAutomation
             Print("\n" + "Press any key to return to menu..", ConsoleColor.Yellow);
             Console.ReadKey();
             ChooseConf(); // Back to menu
-        }
-
-        public void RouterConf()
-        {
-            T1.CiscoCommand("configure terminal");
-            T1.CiscoCommand("line vty 0 4");
-            T1.CiscoCommand("password cisco");
-            T1.CiscoCommand("exit");
-            T1.CiscoCommand("enable secret cisco");
-            T1.CiscoCommand("banner motd !authorized access only!");
-            T1.CiscoCommand("Interface fa0/1");
-            T1.CiscoCommand("ip address 192.168.138.230 255.255.255.0");
-            T1.CiscoCommand("no shutdown");
-            T1.CiscoCommand("exit");
-            T1.CiscoCommand("interface fa0/1.10");
-            T1.CiscoCommand("encapsulation dot1Q 5");
-            T1.CiscoCommand("ip address 192.168.139.1 255.255.255.0");
-            T1.CiscoCommand("ip helper-address SKOLENS NETVÆRK");
-            T1.CiscoCommand("exit");
-            T1.CiscoCommand("ip dhcp pool vlandhcp");
-            T1.CiscoCommand("network 192.168.139.0 255.255.255.0");
-            T1.CiscoCommand("default-router 192.168.139.1");
-            T1.CiscoCommand("exit");
-            T1.CiscoCommand("exit");
-        }    
+        }  
     }
 }
